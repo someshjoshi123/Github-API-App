@@ -7,10 +7,12 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.example.githubapiapp.model.GithubModel;
+import com.example.githubapiapp.model.GithubUserModel;
 import com.example.githubapiapp.viewmodel.UserViewModel;
 
 public class UserDetails extends AppCompatActivity {
@@ -39,13 +41,25 @@ public class UserDetails extends AppCompatActivity {
         userLogin = extra.getString("userLogin");
 
         loadUserDetails();
+        loadUserRepositories();
+    }
+
+    private void loadUserRepositories() {
+        repos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDetails.this, Repositories.class);
+                intent.putExtra("userLogin", userLogin);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadUserDetails() {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.getUserData().observe(this, new Observer<GithubModel>() {
+        userViewModel.getUserData().observe(this, new Observer<GithubUserModel>() {
             @Override
-            public void onChanged(GithubModel githubModel) {
+            public void onChanged(GithubUserModel githubModel) {
                 if (githubModel != null) {
                     Glide.with(getApplicationContext())
                             .load(githubModel.getAvatar_url())

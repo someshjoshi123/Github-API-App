@@ -1,8 +1,6 @@
 package com.example.githubapiapp.model;
 
-import com.google.gson.annotations.SerializedName;
-
-public class GithubModel {
+public class GithubUserModel {
     private String login;
     private String avatar_url;
     private String name;
@@ -10,7 +8,7 @@ public class GithubModel {
     private int followers;
     private int following;
 
-    public GithubModel(String login, String avatar_url, String name, int public_repos, int followers, int following) {
+    public GithubUserModel(String login, String avatar_url, String name, int public_repos, int followers, int following) {
         this.login = login;
         this.avatar_url = avatar_url;
         this.name = name;
